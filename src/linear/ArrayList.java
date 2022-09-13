@@ -14,7 +14,7 @@ public class ArrayList<E> implements List<E>{
 
     @Override
     public int size() {
-        return this.size;
+
     }
 
     @Override
