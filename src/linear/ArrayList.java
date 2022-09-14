@@ -1,10 +1,12 @@
 package linear;
 
+import java.util.Arrays;
+
 public class ArrayList<E> implements List<E>{
 
     //Define data or attribute
     public static final int DEFAULT_CAPACITY = 4;
-    private int size; //the number of elements in list
+    private int size = 0; //the number of elements in list
     private E[] elements;
 
     public ArrayList(){
@@ -19,17 +21,34 @@ public class ArrayList<E> implements List<E>{
 
     @Override
     public boolean isEmpty() {
-        return false;
+
+        if(true)
+        {
+            for(E e : elements){
+
+                if(e != null){
+
+                    return false;
+                };
+            }
+        }
+        return true;
     }
 
     @Override
     public E get(int index) {
 
-        return this.elements[index];
+        if(checkIndex(index)){
+
+            return (E) ("\n" + this.elements[index]);
+
+        }
+        return (E) "\nIndex error!";
     }
 
     @Override
     public Object set(int index, Object newElement) {
+
         return null;
     }
 
@@ -37,8 +56,11 @@ public class ArrayList<E> implements List<E>{
     public boolean add(E newElement) {
 
         if(this.size == this.elements.length){
-            return false;
+
+            this.elements = grow();
+
         }
+
         this.elements[this.size++] = newElement;
         return true;
     }
@@ -67,10 +89,42 @@ public class ArrayList<E> implements List<E>{
     public String toString() {
 
         String a = "";
+
         for (E e : elements) {
 
-            a = a + " " +e;
+            if(a.equals(""))
+            {
+                a = String.valueOf(e);
+            }
+            else{
+
+                a = a + ", " +e;
+            }
         }
-        return a;
+        return "\n[" +a+ "]";
+    }
+
+    private E[] grow(){
+
+        return Arrays.copyOf(this.elements, this.elements.length + 1);
+    }
+
+    private E[] shrink(){
+
+        return Arrays.copyOf(this.elements, this.elements.length / 2);
+    }
+
+    private boolean checkIndex(int index){
+
+        if(index < 0){
+
+            return false;
+
+        }else if(index >= elements.length){
+
+            return false;
+
+        }
+        return true;
     }
 }
